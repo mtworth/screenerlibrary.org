@@ -20,164 +20,166 @@
     <main class="container mx-auto p-8">
         <h2 class="text-3xl font-bold text-center mb-8">Child Food Security Screener</h2>
         <div x-data="screener()" class="max-w-2xl mx-auto">
-            <div class="border-b mb-8">
-                <div class="flex justify-between">
-                    <template x-for="(step, index) in steps" :key="index">
-                        <div class="w-1/12 text-center">
-                            <div class="rounded-full h-8 w-8 flex items-center justify-center mx-auto" :class="{ 'bg-black text-white': currentStep >= index, 'bg-gray-200': currentStep < index }">
-                                <span x-text="index + 1"></span>
+            <div x-show="!result">
+                <div class="border-b mb-8">
+                    <div class="flex justify-between">
+                        <template x-for="(step, index) in steps" :key="index">
+                            <div class="w-1/12 text-center">
+                                <div class="rounded-full h-8 w-8 flex items-center justify-center mx-auto" :class="{ 'bg-black text-white': currentStep >= index, 'bg-gray-200': currentStep < index }">
+                                    <span x-text="index + 1"></span>
+                                </div>
                             </div>
+                        </template>
+                    </div>
+                </div>
+
+                <div x-show="currentStep === 0">
+                    <div class="border rounded-lg p-6">
+                        <p class="text-lg mb-4">1. "(I/we) worried whether (my/our) food would run out before (I/we) got money to buy more." Was that often, sometimes, or never true for (you/your household) in the last 12 months?</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q1 === 'often' }"><input type="radio" name="q1" value="often" x-model="answers.q1" class="mr-4"> Often true</label>
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q1 === 'sometimes' }"><input type="radio" name="q1" value="sometimes" x-model="answers.q1" class="mr-4"> Sometimes true</label>
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q1 === 'never' }"><input type="radio" name="q1" value="never" x-model="answers.q1" class="mr-4"> Never true</label>
                         </div>
-                    </template>
+                    </div>
                 </div>
-            </div>
+                <div x-show="currentStep === 1">
+                    <div class="border rounded-lg p-6">
+                        <p class="text-lg mb-4">2. "The food that (I/we) bought just didn't last, and (I/we) didn't have money to get more." Was that often, sometimes, or never true for (you/your household) in the last 12 months?</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q2 === 'often' }"><input type="radio" name="q2" value="often" x-model="answers.q2" class="mr-4"> Often true</label>
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q2 === 'sometimes' }"><input type="radio" name="q2" value="sometimes" x-model="answers.q2" class="mr-4"> Sometimes true</label>
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q2 === 'never' }"><input type="radio" name="q2" value="never" x-model="answers.q2" class="mr-4"> Never true</label>
+                        </div>
+                    </div>
+                </div>
+                <div x-show="currentStep === 2">
+                    <div class="border rounded-lg p-6">
+                        <p class="text-lg mb-4">3. "(I/we) couldn't afford to eat balanced meals." Was that often, sometimes, or never true for (you/your household) in the last 12 months?</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q3 === 'often' }"><input type="radio" name="q3" value="often" x-model="answers.q3" class="mr-4"> Often true</label>
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q3 === 'sometimes' }"><input type="radio" name="q3" value="sometimes" x-model="answers.q3" class="mr-4"> Sometimes true</label>
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q3 === 'never' }"><input type="radio" name="q3" value="never" x-model="answers.q3" class="mr-4"> Never true</label>
+                        </div>
+                    </div>
+                </div>
+                <div x-show="currentStep === 3">
+                    <div class="border rounded-lg p-6">
+                        <p class="text-lg mb-4">4. "In the last 12 months, did (you/you or other adults in your household) ever cut the size of your meals or skip meals because there wasn't enough money for food?"</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q4 === 'yes' }"><input type="radio" name="q4" value="yes" x-model="answers.q4" class="mr-4"> Yes</label>
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q4 === 'no' }"><input type="radio" name="q4" value="no" x-model="answers.q4" class="mr-4"> No</label>
+                        </div>
+                    </div>
+                </div>
+                <div x-show="currentStep === 4">
+                    <div class="border rounded-lg p-6">
+                        <p class="text-lg mb-4">5. How often did this happen—almost every month, some months but not every month, or in only 1 or 2 months?</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q5 === 'almost every month' }"><input type="radio" name="q5" value="almost every month" x-model="answers.q5" class="mr-4"> Almost every month</label>
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q5 === 'some months' }"><input type="radio" name="q5" value="some months" x-model="answers.q5" class="mr-4"> Some months but not every month</label>
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q5 === 'only 1 or 2 months' }"><input type="radio" name="q5" value="only 1 or 2 months" x-model="answers.q5" class="mr-4"> In only 1 or 2 months</label>
+                        </div>
+                    </div>
+                </div>
+                <div x-show="currentStep === 5">
+                    <div class="border rounded-lg p-6">
+                        <p class="text-lg mb-4">6. "In the last 12 months, did you ever eat less than you felt you should because there wasn't enough money for food?"</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q6 === 'yes' }"><input type="radio" name="q6" value="yes" x-model="answers.q6" class="mr-4"> Yes</label>
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q6 === 'no' }"><input type="radio" name="q6" value="no" x-model="answers.q6" class="mr-4"> No</label>
+                        </div>
+                    </div>
+                </div>
+                <div x-show="currentStep === 6">
+                    <div class="border rounded-lg p-6">
+                        <p class="text-lg mb-4">7. "In the last 12 months, were you ever hungry but didn't eat because there wasn't enough money for food?"</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q7 === 'yes' }"><input type="radio" name="q7" value="yes" x-model="answers.q7" class="mr-4"> Yes</label>
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q7 === 'no' }"><input type="radio" name="q7" value="no" x-model="answers.q7" class="mr-4"> No</label>
+                        </div>
+                    </div>
+                </div>
+                <div x-show="currentStep === 7">
+                    <div class="border rounded-lg p-6">
+                        <p class="text-lg mb-4">8. "In the last 12 months, did you lose weight because there wasn't enough money for food?"</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q8 === 'yes' }"><input type="radio" name="q8" value="yes" x-model="answers.q8" class="mr-4"> Yes</label>
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q8 === 'no' }"><input type="radio" name="q8" value="no" x-model="answers.q8" class="mr-4"> No</label>
+                        </div>
+                    </div>
+                </div>
+                <div x-show="currentStep === 8">
+                    <div class="border rounded-lg p-6">
+                        <p class="text-lg mb-4">9. "In the last 12 months, did (you/you or other adults in your household) ever not eat for a whole day because there wasn't enough money for food?"</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q9 === 'yes' }"><input type="radio" name="q9" value="yes" x-model="answers.q9" class="mr-4"> Yes</label>
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q9 === 'no' }"><input type="radio" name="q9" value="no" x-model="answers.q9" class="mr-4"> No</label>
+                        </div>
+                    </div>
+                </div>
+                <div x-show="currentStep === 9">
+                    <div class="border rounded-lg p-6">
+                        <p class="text-lg mb-4">10. How often did this happen—almost every month, some months but not every month, or in only 1 or 2 months?</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q10 === 'almost every month' }"><input type="radio" name="q10" value="almost every month" x-model="answers.q10" class="mr-4"> Almost every month</label>
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q10 === 'some months' }"><input type="radio" name="q10" value="some months" x-model="answers.q10" class="mr-4"> Some months but not every month</label>
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q10 === 'only 1 or 2 months' }"><input type="radio" name="q10" value="only 1 or 2 months" x-model="answers.q10" class="mr-4"> In only 1 or 2 months</label>
+                        </div>
+                    </div>
+                </div>
+                <div x-show="currentStep === 10">
+                    <div class="border rounded-lg p-6">
+                        <p class="text-lg mb-4">11. "In the last 12 months, did you or other adults in your household ever cut the size of any of the children's meals because there wasn't enough money for food?"</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q11 === 'yes' }"><input type="radio" name="q11" value="yes" x-model="answers.q11" class="mr-4"> Yes</label>
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q11 === 'no' }"><input type="radio" name="q11" value="no" x-model="answers.q11" class="mr-4"> No</label>
+                        </div>
+                    </div>
+                </div>
+                <div x-show="currentStep === 11">
+                    <div class="border rounded-lg p-6">
+                        <p class="text-lg mb-4">12. "In the last 12 months, did any of the children ever skip meals because there wasn't enough money for food?"</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q12 === 'yes' }"><input type="radio" name="q12" value="yes" x-model="answers.q12" class="mr-4"> Yes</label>
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q12 === 'no' }"><input type="radio" name="q12" value="no" x-model="answers.q12" class="mr-4"> No</label>
+                        </div>
+                    </div>
+                </div>
+                <div x-show="currentStep === 12">
+                    <div class="border rounded-lg p-6">
+                        <p class="text-lg mb-4">13. How often did this happen—almost every month, some months but not every month, or in only 1 or 2 months?</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q13 === 'almost every month' }"><input type="radio" name="q13" value="almost every month" x-model="answers.q13" class="mr-4"> Almost every month</label>
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q13 === 'some months' }"><input type="radio" name="q13" value="some months" x-model="answers.q13" class="mr-4"> Some months but not every month</label>
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q13 === 'only 1 or 2 months' }"><input type="radio" name="q13" value="only 1 or 2 months" x-model="answers.q13" class="mr-4"> In only 1 or 2 months</label>
+                        </div>
+                    </div>
+                </div>
+                <div x-show="currentStep === 13">
+                    <div class="border rounded-lg p-6">
+                        <p class="text-lg mb-4">14. "In the last 12 months, were the children ever hungry but you just couldn't afford more food?"</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q14 === 'yes' }"><input type="radio" name="q14" value="yes" x-model="answers.q14" class="mr-4"> Yes</label>
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q14 === 'no' }"><input type="radio" name="q14" value="no" x-model="answers.q14" class="mr-4"> No</label>
+                        </div>
+                    </div>
+                </div>
+                <div x-show="currentStep === 14">
+                    <div class="border rounded-lg p-6">
+                        <p class="text-lg mb-4">15. "In the last 12 months, did any of the children ever not eat for a whole day because there wasn't enough money for food?"</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q15 === 'yes' }"><input type="radio" name="q15" value="yes" x-model="answers.q15" class="mr-4"> Yes</label>
+                            <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q15 === 'no' }"><input type="radio" name="q15" value="no" x-model="answers.q15" class="mr-4"> No</label>
+                        </div>
+                    </div>
+                </div>
 
-            <div x-show="currentStep === 0">
-                <div class="border rounded-lg p-6">
-                    <p class="text-lg mb-4">1. "(I/we) worried whether (my/our) food would run out before (I/we) got money to buy more." Was that often, sometimes, or never true for (you/your household) in the last 12 months?</p>
-                    <div class="space-y-2">
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q1 === 'often' }"><input type="radio" name="q1" value="often" x-model="answers.q1" class="mr-4"> Often true</label>
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q1 === 'sometimes' }"><input type="radio" name="q1" value="sometimes" x-model="answers.q1" class="mr-4"> Sometimes true</label>
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q1 === 'never' }"><input type="radio" name="q1" value="never" x-model="answers.q1" class="mr-4"> Never true</label>
-                    </div>
+                <div class="flex justify-between mt-8">
+                    <button @click="prevStep()" :disabled="currentStep === 0" class="bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded hover:bg-gray-300 disabled:opacity-50">&larr; Back</button>
+                    <button @click="nextStep()" x-show="currentStep < steps.length - 1" class="bg-black text-white font-bold py-3 px-6 rounded hover:bg-gray-800">Next &rarr;</button>
+                    <button @click="submitScreener()" x-show="currentStep === steps.length - 1" class="bg-black text-white font-bold py-3 px-6 rounded hover:bg-gray-800">Get Result</button>
                 </div>
-            </div>
-            <div x-show="currentStep === 1">
-                <div class="border rounded-lg p-6">
-                    <p class="text-lg mb-4">2. "The food that (I/we) bought just didn't last, and (I/we) didn't have money to get more." Was that often, sometimes, or never true for (you/your household) in the last 12 months?</p>
-                    <div class="space-y-2">
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q2 === 'often' }"><input type="radio" name="q2" value="often" x-model="answers.q2" class="mr-4"> Often true</label>
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q2 === 'sometimes' }"><input type="radio" name="q2" value="sometimes" x-model="answers.q2" class="mr-4"> Sometimes true</label>
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q2 === 'never' }"><input type="radio" name="q2" value="never" x-model="answers.q2" class="mr-4"> Never true</label>
-                    </div>
-                </div>
-            </div>
-            <div x-show="currentStep === 2">
-                <div class="border rounded-lg p-6">
-                    <p class="text-lg mb-4">3. "(I/we) couldn't afford to eat balanced meals." Was that often, sometimes, or never true for (you/your household) in the last 12 months?</p>
-                    <div class="space-y-2">
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q3 === 'often' }"><input type="radio" name="q3" value="often" x-model="answers.q3" class="mr-4"> Often true</label>
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q3 === 'sometimes' }"><input type="radio" name="q3" value="sometimes" x-model="answers.q3" class="mr-4"> Sometimes true</label>
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q3 === 'never' }"><input type="radio" name="q3" value="never" x-model="answers.q3" class="mr-4"> Never true</label>
-                    </div>
-                </div>
-            </div>
-            <div x-show="currentStep === 3">
-                <div class="border rounded-lg p-6">
-                    <p class="text-lg mb-4">4. "In the last 12 months, did (you/you or other adults in your household) ever cut the size of your meals or skip meals because there wasn't enough money for food?"</p>
-                    <div class="space-y-2">
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q4 === 'yes' }"><input type="radio" name="q4" value="yes" x-model="answers.q4" class="mr-4"> Yes</label>
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q4 === 'no' }"><input type="radio" name="q4" value="no" x-model="answers.q4" class="mr-4"> No</label>
-                    </div>
-                </div>
-            </div>
-            <div x-show="currentStep === 4">
-                <div class="border rounded-lg p-6">
-                    <p class="text-lg mb-4">5. How often did this happen—almost every month, some months but not every month, or in only 1 or 2 months?</p>
-                    <div class="space-y-2">
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q5 === 'almost every month' }"><input type="radio" name="q5" value="almost every month" x-model="answers.q5" class="mr-4"> Almost every month</label>
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q5 === 'some months' }"><input type="radio" name="q5" value="some months" x-model="answers.q5" class="mr-4"> Some months but not every month</label>
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q5 === 'only 1 or 2 months' }"><input type="radio" name="q5" value="only 1 or 2 months" x-model="answers.q5" class="mr-4"> In only 1 or 2 months</label>
-                    </div>
-                </div>
-            </div>
-            <div x-show="currentStep === 5">
-                <div class="border rounded-lg p-6">
-                    <p class="text-lg mb-4">6. "In the last 12 months, did you ever eat less than you felt you should because there wasn't enough money for food?"</p>
-                    <div class="space-y-2">
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q6 === 'yes' }"><input type="radio" name="q6" value="yes" x-model="answers.q6" class="mr-4"> Yes</label>
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q6 === 'no' }"><input type="radio" name="q6" value="no" x-model="answers.q6" class="mr-4"> No</label>
-                    </div>
-                </div>
-            </div>
-            <div x-show="currentStep === 6">
-                <div class="border rounded-lg p-6">
-                    <p class="text-lg mb-4">7. "In the last 12 months, were you ever hungry but didn't eat because there wasn't enough money for food?"</p>
-                    <div class="space-y-2">
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q7 === 'yes' }"><input type="radio" name="q7" value="yes" x-model="answers.q7" class="mr-4"> Yes</label>
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q7 === 'no' }"><input type="radio" name="q7" value="no" x-model="answers.q7" class="mr-4"> No</label>
-                    </div>
-                </div>
-            </div>
-            <div x-show="currentStep === 7">
-                <div class="border rounded-lg p-6">
-                    <p class="text-lg mb-4">8. "In the last 12 months, did you lose weight because there wasn't enough money for food?"</p>
-                    <div class="space-y-2">
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q8 === 'yes' }"><input type="radio" name="q8" value="yes" x-model="answers.q8" class="mr-4"> Yes</label>
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q8 === 'no' }"><input type="radio" name="q8" value="no" x-model="answers.q8" class="mr-4"> No</label>
-                    </div>
-                </div>
-            </div>
-            <div x-show="currentStep === 8">
-                <div class="border rounded-lg p-6">
-                    <p class="text-lg mb-4">9. "In the last 12 months, did (you/you or other adults in your household) ever not eat for a whole day because there wasn't enough money for food?"</p>
-                    <div class="space-y-2">
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q9 === 'yes' }"><input type="radio" name="q9" value="yes" x-model="answers.q9" class="mr-4"> Yes</label>
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q9 === 'no' }"><input type="radio" name="q9" value="no" x-model="answers.q9" class="mr-4"> No</label>
-                    </div>
-                </div>
-            </div>
-            <div x-show="currentStep === 9">
-                <div class="border rounded-lg p-6">
-                    <p class="text-lg mb-4">10. How often did this happen—almost every month, some months but not every month, or in only 1 or 2 months?</p>
-                    <div class="space-y-2">
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q10 === 'almost every month' }"><input type="radio" name="q10" value="almost every month" x-model="answers.q10" class="mr-4"> Almost every month</label>
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q10 === 'some months' }"><input type="radio" name="q10" value="some months" x-model="answers.q10" class="mr-4"> Some months but not every month</label>
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q10 === 'only 1 or 2 months' }"><input type="radio" name="q10" value="only 1 or 2 months" x-model="answers.q10" class="mr-4"> In only 1 or 2 months</label>
-                    </div>
-                </div>
-            </div>
-            <div x-show="currentStep === 10">
-                <div class="border rounded-lg p-6">
-                    <p class="text-lg mb-4">11. "In the last 12 months, did you or other adults in your household ever cut the size of any of the children's meals because there wasn't enough money for food?"</p>
-                    <div class="space-y-2">
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q11 === 'yes' }"><input type="radio" name="q11" value="yes" x-model="answers.q11" class="mr-4"> Yes</label>
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q11 === 'no' }"><input type="radio" name="q11" value="no" x-model="answers.q11" class="mr-4"> No</label>
-                    </div>
-                </div>
-            </div>
-            <div x-show="currentStep === 11">
-                <div class="border rounded-lg p-6">
-                    <p class="text-lg mb-4">12. "In the last 12 months, did any of the children ever skip meals because there wasn't enough money for food?"</p>
-                    <div class="space-y-2">
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q12 === 'yes' }"><input type="radio" name="q12" value="yes" x-model="answers.q12" class="mr-4"> Yes</label>
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q12 === 'no' }"><input type="radio" name="q12" value="no" x-model="answers.q12" class="mr-4"> No</label>
-                    </div>
-                </div>
-            </div>
-            <div x-show="currentStep === 12">
-                <div class="border rounded-lg p-6">
-                    <p class="text-lg mb-4">13. How often did this happen—almost every month, some months but not every month, or in only 1 or 2 months?</p>
-                    <div class="space-y-2">
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q13 === 'almost every month' }"><input type="radio" name="q13" value="almost every month" x-model="answers.q13" class="mr-4"> Almost every month</label>
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q13 === 'some months' }"><input type="radio" name="q13" value="some months" x-model="answers.q13" class="mr-4"> Some months but not every month</label>
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q13 === 'only 1 or 2 months' }"><input type="radio" name="q13" value="only 1 or 2 months" x-model="answers.q13" class="mr-4"> In only 1 or 2 months</label>
-                    </div>
-                </div>
-            </div>
-            <div x-show="currentStep === 13">
-                <div class="border rounded-lg p-6">
-                    <p class="text-lg mb-4">14. "In the last 12 months, were the children ever hungry but you just couldn't afford more food?"</p>
-                    <div class="space-y-2">
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q14 === 'yes' }"><input type="radio" name="q14" value="yes" x-model="answers.q14" class="mr-4"> Yes</label>
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q14 === 'no' }"><input type="radio" name="q14" value="no" x-model="answers.q14" class="mr-4"> No</label>
-                    </div>
-                </div>
-            </div>
-            <div x-show="currentStep === 14">
-                <div class="border rounded-lg p-6">
-                    <p class="text-lg mb-4">15. "In the last 12 months, did any of the children ever not eat for a whole day because there wasn't enough money for food?"</p>
-                    <div class="space-y-2">
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q15 === 'yes' }"><input type="radio" name="q15" value="yes" x-model="answers.q15" class="mr-4"> Yes</label>
-                        <label class="flex items-center p-4 border rounded-lg cursor-pointer" :class="{ 'bg-gray-100': answers.q15 === 'no' }"><input type="radio" name="q15" value="no" x-model="answers.q15" class="mr-4"> No</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex justify-between mt-8">
-                <button @click="prevStep()" :disabled="currentStep === 0" class="bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded hover:bg-gray-300 disabled:opacity-50">&larr; Back</button>
-                <button @click="nextStep()" x-show="currentStep < steps.length - 1" class="bg-black text-white font-bold py-3 px-6 rounded hover:bg-gray-800">Next &rarr;</button>
-                <button @click="submitScreener()" x-show="currentStep === steps.length - 1" class="bg-black text-white font-bold py-3 px-6 rounded hover:bg-gray-800">Get Result</button>
             </div>
 
             <div x-show="result" class="border rounded-lg p-6 mt-8">
@@ -209,10 +211,6 @@
     </main>
 
     <footer class="border-t mt-16">
-        <div class="container mx-auto p-8">
-            <h5 class="text-lg font-bold mb-4">FoodSecurityScreeners.org</h5>
-            <p class="text-gray-600">Helping identify and address food security concerns through standardized screening tools.</p>
-        </div>
         <div class="border-t">
             <div class="container mx-auto p-4 text-center text-gray-600">
                 <p>&copy; 2025 FoodSecurityScreeners.org. All rights reserved.</p>
@@ -230,15 +228,12 @@
                 
                 nextStep() {
                     if (this.currentStep < this.steps.length - 1) {
-                        // Skip question 5 if question 4 is "no"
                         if (this.currentStep === 3 && this.answers.q4 === 'no') {
                             this.currentStep += 2;
                         } 
-                        // Skip question 10 if question 9 is "no"
                         else if (this.currentStep === 8 && this.answers.q9 === 'no') {
                             this.currentStep += 2;
                         }
-                        // Skip question 13 if question 12 is "no"
                         else if (this.currentStep === 11 && this.answers.q12 === 'no') {
                             this.currentStep += 2;
                         }
@@ -250,15 +245,12 @@
 
                 prevStep() {
                     if (this.currentStep > 0) {
-                        // Skip back from question 6 to 4 if question 4 is "no"
                         if (this.currentStep === 5 && this.answers.q4 === 'no') {
                             this.currentStep -= 2;
                         } 
-                        // Skip back from question 11 to 9 if question 9 is "no"
                         else if (this.currentStep === 10 && this.answers.q9 === 'no') {
                             this.currentStep -= 2;
                         }
-                        // Skip back from question 14 to 12 if question 12 is "no"
                         else if (this.currentStep === 13 && this.answers.q12 === 'no') {
                             this.currentStep -= 2;
                         }
