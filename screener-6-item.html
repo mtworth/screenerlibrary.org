@@ -10,7 +10,10 @@
 <body class="bg-white text-gray-800">
     <header class="border-b">
         <div class="container mx-auto p-4 flex justify-between items-center">
-            <a href="index.html" class="text-xl font-bold">FoodSecurityScreeners.org</a>
+            <a href="index.html" class="flex items-center space-x-3">
+                <img src="assets/fruitbasket.png" alt="ScreenerLibrary.org Logo" class="h-10">
+                <span class="text-xl font-bold">ScreenerLibrary.org</span>
+            </a>
             <nav>
                 <a href="about.html" class="text-gray-600 hover:text-gray-800 px-4">About</a>
             </nav>
@@ -21,15 +24,12 @@
         <h2 class="text-3xl font-bold text-center mb-8">Adult Food Security Screener</h2>
         <div x-data="screener()" class="max-w-2xl mx-auto">
             <div x-show="!result">
-                <div class="border-b mb-8">
-                    <div class="flex justify-between">
-                        <template x-for="(step, index) in steps" :key="index">
-                            <div class="w-1/6 text-center">
-                                <div class="rounded-full h-8 w-8 flex items-center justify-center mx-auto" :class="{ 'bg-black text-white': currentStep >= index, 'bg-gray-200': currentStep < index }">
-                                    <span x-text="index + 1"></span>
-                                </div>
-                            </div>
-                        </template>
+                <div class="mb-8">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm text-gray-600" x-text="`Question ${currentStep + 1} of ${steps.length}`"></span>
+                    </div>
+                    <div class="bg-gray-200 rounded-full h-2">
+                        <div class="bg-black rounded-full h-2" :style="`width: ${((currentStep + 1) / steps.length) * 100}%`"></div>
                     </div>
                 </div>
 
@@ -129,7 +129,7 @@
     <footer class="border-t mt-16">
         <div class="border-t">
             <div class="container mx-auto p-4 text-center text-gray-600">
-                <p>&copy; 2025 FoodSecurityScreeners.org. All rights reserved.</p>
+                <p>&copy; 2025 ScreenerLibrary.org. All rights reserved.</p>
             </div>
         </div>
     </footer>
