@@ -4,7 +4,7 @@ A free, open repository of validated evaluation screeners for health, social ser
 
 ## About
 
-ScreenerLibrary provides digital interfaces for validated screening instruments, helping practitioners better understand how these tools operate and what they're really asking respondents. Currently focused on USDA food security screeners, with plans to expand across multiple domains.
+ScreenerLibrary provides digital interfaces for validated screening instruments, helping practitioners better understand how these tools operate and what they're really asking respondents. Currently focused on USDA food security screeners, with plans to expand across multiple domains including housing and utilities. 
 
 ## Current Available Screeners
 
